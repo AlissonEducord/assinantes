@@ -1,0 +1,27 @@
+{
+  "name": "MetFlix",
+  "version": "1.0.0",
+  "description": "Trabalho final",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "author": "Maurílio",
+  "license": "",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "body-parser": "^1.18.3",
+    "bootstrap": "^4.3.1",
+    "bootstrap-vue": "^2.0.0-rc.24",
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.0",
+    "pg": "^7.7.1",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.41.2",
+    "vue": "^2.6.10"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.8"
+  }
+}
