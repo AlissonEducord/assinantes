@@ -20,7 +20,7 @@ module.exports = class User{
         var result
         return await db
             .query(`
-                INSERT INTO pontos  
+                INSERT INTO pontos  (id_assinantes, pontos) values (
 
                 SELECT 
                     id,
@@ -31,7 +31,7 @@ module.exports = class User{
                 
                     END AS pts 
                 FROM assinantes
-                WHERE id = ${msg.id}; `, { type: Sequelize.QueryTypes.INSERT})
+                WHERE id = ${msg.id}); commit;`, { type: Sequelize.QueryTypes.INSERT})
             .then(ranking => {
                
                 return ranking
