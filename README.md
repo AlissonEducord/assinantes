@@ -1,6 +1,6 @@
 # Assinantes
 
-> Trabalho final Arquitetura
+> Trabalho final Arquitetura de Software
 
 ## Alunos
 
