@@ -85,7 +85,8 @@
                     selected : 'Selecione',
                     selectedDest: 'Selecione',
                     maxMensage: 50,
-                    user: null
+                    user: null,
+                    url: 'https://assinantes.herokuapp.com'
                 },
 
                 created() {
@@ -95,7 +96,7 @@
                 methods: {
                     async getUsers(){
                     this.usuarios = await axios
-                                        .get('http://localhost:5000/assinantes')
+                                        .get(this.url+'/assinantes')
                                         .then( response => {                                  
                                             return response.data 
                                         })                                  
@@ -103,7 +104,7 @@
 
                     async getUser(id){
                     this.user =  await axios
-                                        .get('http://localhost:5000/assinantes/'+id)
+                                        .get(this.url+'/assinantes/'+id)
                                         .then( response => {                                  
                                             return response.data 
                                         })                                  
@@ -111,7 +112,7 @@
 
                     async enviarMensagem(){
                         this.user =  await axios
-                                        .post('http://localhost:5000/user/mensagem', {id: this.selected, menssagem: this.message})
+                                        .post(this.url+'/user/mensagem', {id: this.selected, menssagem: this.message})
                                         .then( response => {           
                                             alert('Mensagem enviada')                       
                                             return response.data 

@@ -85,7 +85,8 @@
           el: '#app',
           data: {
             message: 'Hello Vue!',
-            ranking: []
+            ranking: [],
+            url: 'https://assinantes.herokuapp.com'
           },
 
           created() {
@@ -95,7 +96,7 @@
           methods: {
             async getRanking(){
               this.ranking = await axios
-                                .get('http://localhost:5000/user/ranking/')
+                                .get(this.url+'/user/ranking/')
                                 .then( response => {                                  
                                   return response.data 
                                 })                             
