@@ -1,4 +1,4 @@
-# MetFlix
+# Assinantes
 
 > Trabalho final Arquitetura
 
