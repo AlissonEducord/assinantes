@@ -32,7 +32,11 @@ module.exports = class User{
                     END AS pts 
                 FROM assinantes
                 WHERE id = ${msg.id}; 
-                
+                                                
+                UPDATE assinantes 
+                SET qtd_mensagens = (SELECT assinantes.qtd_mensagens FROM assinantes   WHERE id = ${msg.id}) + 1            
+                WHERE id = ${msg.id} ;
+
                 `, { type: Sequelize.QueryTypes.INSERT})
             .then(ranking => {
                
