@@ -11,24 +11,158 @@
     <title>Assinantes!</title>
   </head>
   <body>
-    
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">Assinantes</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <a class="nav-item nav-link" href="ranking">Ranking</a>
-            <a class="nav-item nav-link" href="mensagem">Enviar Mensagem</a>
-            
-          </div>
+      <div id="app">         
+          
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">Assinantes</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                <a class="nav-item nav-link" href="ranking">Ranking</a>
+                <a class="nav-item nav-link" href="mensagem">Enviar Mensagem</a>
+                
+              </div>
+            </div>
+        </nav>
+          <br><br>
+
+        <div class="container">  
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="card" style="width: 18rem;">
+                      <div class="card-body">
+                        <h5 class="card-title">Assinantes</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Cadastro de assinates</h6>                        
+                      </div>
+                    </div>
+                  <br>
+                  <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                   Cadastrar Assinate
+                  </button>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Cadastro de Assinantes</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form  v-on:submit.prevent="save()">
+                            <div class="form-group col-md-6">
+                              <label for="exampleInputEmail1">Nome</label>
+                              <input type="text" class="form-control" v-model="nome" id="exampleInputEmail1" aria-describedby="emailHelp" required placeholder="Nome">                              
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label for="exampleFormControlSelect1">Tipo de assinante</label>
+                              <select v-model="selectedDest" class="form-control" id="destinatario" required>                                                                        
+                                  <option v-for='tipo in tipos' v-model:value="tipo.tipo">{{tipo.tipo}}</option>                                    
+                              </select>
+                              <br><hr>
+                              <button type="submit" class="btn btn-primary">Salvar</button>
+                            </div>
+                                                        
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                         
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <br>
+                <table class="table">
+                  <thead>
+                    <tr>                      
+                      <th scope="col">Nome</th>
+                      <th scope="col">Tipo</th>                      
+                      <th scope="col">QTD Mensagens</th>                 
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <tr v-for="(entry, index ) in users ">                                                                      
+                        <td  scope="row">
+                            {{entry.nome}}
+                        </td>
+                        <td  scope="row">
+                              {{entry.flg_tipo}}
+                        </td>  
+                        <td  scope="row">
+                            {{entry.qtd_mensagens}}
+                        </td>                        
+                      </tr>
+                    </tbody>
+                </table>                  
+               </div>
+            </div>
         </div>
-      </nav>
+    </div>
 
     
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+         var app = new Vue({
+
+          el: '#app',
+          data: {
+            message: 'Hello Vue!',
+            users: [],
+            url: 'https://assinantes.herokuapp.com',
+            tipos: [
+              {
+                tipo:"FREE"
+              },
+              {
+                tipo:"PREMIUM"
+              },
+              {
+                tipo:"VIP"
+              }
+            ],
+            selectedDest:'',
+            nome:''
+          },
+
+          created() {
+            this.getRanking()
+          },  
+
+          methods: {
+            async getRanking(){
+              this.users = await axios
+                                .get(this.url+'/assinantes')
+                                .then( response => {                                  
+                                  return response.data 
+                                })               
+                                              
+            },
+
+            async save(){
+                this.user =  await axios
+                                .post(this.url+'/assinantes', { nome: this.nome, flg_tipo: this.selected})
+                                .then( response => {           
+                                    alert('Salvo com sucesso')                       
+                                    return response.data 
+                                })         
+                location.reload()
+            },
+          },
+            
+
+
+
+        })
+    </script>
   </body>
 </html>
