@@ -1,7 +1,14 @@
 const express = require('express');
+var cors = require('cors')
+
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const path = require('path');
+
+const app = express();
+
+app.use(cors())
+
 
 // Database
 const db = require('./config/database');
@@ -10,8 +17,6 @@ const db = require('./config/database');
 db.authenticate()
   .then(() => console.log('Database connected...'))
   .catch(err => console.log('Error: ' + err))
-
-const app = express();
 
 app.use(bodyParser.json())
 app.use(
