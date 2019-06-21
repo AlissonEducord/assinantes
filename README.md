@@ -2,7 +2,24 @@
 
 > Trabalho final Arquitetura
 
-## Quick Start
+## Alunos
+
+``` bash
+Alisson Eduardo C. Araujo - RA: 11627289
+Guilherme Motti
+Lúcio
+Maurílio B. Martins       - RA: 11621220
+
+```
+## Instruções para ambiente de produção
+
+``` bash
+# Endereço
+https://assinantes.herokuapp.com
+
+```
+
+## Instruções para ambiente local
 
 ``` bash
 # Install dependencies
